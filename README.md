@@ -8,7 +8,7 @@
 
 A .NET CLI tool for analysing [BenchmarkDotNet](https://benchmarkdotnet.org/) results.
 
-BDNA aggregates and analyses [BenchmarkDotNet](https://benchmarkdotnet.org/) results for performance degredations. If you want to ensure your critical code has acceptable performance, BDNA may help you.
+BDNA aggregates and analyses [BenchmarkDotNet](https://benchmarkdotnet.org/) results for performance degredations. If you want to ensure your critical code has acceptable performance in your CI pipelines BDNA may help you.
 
 ---
 
@@ -18,7 +18,9 @@ BDNA aggregates and analyses [BenchmarkDotNet](https://benchmarkdotnet.org/) res
 
 To install BDNA, you'll need the .NET v5 runtime [available here](https://dotnet.microsoft.com/download/dotnet/5.0).
 
-...
+BDNA can be downloaded and installed from [Github Packages](https://github.com/orgs/NewDayTechnology/packages). 
+
+---
 
 ## Building locally
 
@@ -31,7 +33,7 @@ By default, the build script will restore, build, run tests and package:
 .\build.ps1
 ```
 
-If you want to build up to a certain target ([available here](FakeBuild.fsx)) just give the target's name:
+If you want to build up to a [certain target](FakeBuild.fsx) just give the target's name:
 
 ```powershell
 .\build.ps1 "Unit Tests"
@@ -202,11 +204,6 @@ Each benchmark run is exported, together with any build number, build URL, branc
 # Support
 [Support](SUPPORT.md)
 
-
-# Terms of service
-
-...
-
 ---
 
 ## Technologies used
@@ -227,7 +224,7 @@ Some 3rd party packages that we depend on:-
 
 ---
 
-## More reading
+## Further reading
 
 [License](LICENSE)
 
