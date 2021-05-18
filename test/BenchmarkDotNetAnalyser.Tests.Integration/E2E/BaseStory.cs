@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -219,6 +220,16 @@ namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
                 {
                     throw new AssertionFailedException($"File {file} does not exist.");
                 }
+
+                using (var stream = File.OpenText(file))
+                {
+                    using (var csvReader = new CsvHelper.CsvReader(stream, CultureInfo.InvariantCulture))
+                    {
+                        var recs = csvReader.GetRecords<object>().ToList();
+
+                        recs.Count.Should().BeGreaterThan(0);
+                    }
+                }
             }
         }
 
@@ -235,9 +246,7 @@ namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
                 
                 var json = File.ReadAllText(file);
                 var records = JsonConvert.DeserializeObject<IList<BenchmarkRecord>>(json);
-
                 records.Count.Should().BeGreaterThan(0);
-
             }
         }
     }

@@ -59,7 +59,7 @@ namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
                 .Then(s => s.JsonReportsAreVerified())
                 .BDDfy();
         }
-
+        
         
         [BddfyFact]
         public void Reporting_MultipleRunAggregation_JsonGenerated()
