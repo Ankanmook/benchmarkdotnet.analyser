@@ -15,7 +15,7 @@ namespace BenchmarkDotNetAnalyser.Tests.Unit.Reporting
     public class JsonBenchmarksReportGeneratorTest
     {
         [Fact]
-        public async Task GenerateAsync_()
+        public async Task GenerateAsync_BenchmarksFlowThrough()
         {
             var benchmarks = new[] {new BenchmarkInfo()};
             var jsonWriter = Substitute.For<IJsonFileWriter>();

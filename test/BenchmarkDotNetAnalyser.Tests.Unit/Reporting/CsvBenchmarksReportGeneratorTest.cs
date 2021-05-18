@@ -12,7 +12,7 @@ namespace BenchmarkDotNetAnalyser.Tests.Unit.Reporting
     public class CsvBenchmarksReportGeneratorTest
     {
         [Fact]
-        public async Task GenerateAsync_()
+        public async Task GenerateAsync_BenchmarksFlowThrough()
         {
             var benchmarks = new[] {new BenchmarkInfo() };
             var csvWriter = Substitute.For<ICsvFileWriter>();
