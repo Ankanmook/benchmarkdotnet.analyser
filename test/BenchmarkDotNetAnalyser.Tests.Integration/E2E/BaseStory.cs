@@ -12,6 +12,7 @@ using BenchmarkDotNetAnalyser.IO;
 using BenchmarkDotNetAnalyser.Reporting;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using Newtonsoft.Json;
 using NSubstitute;
 
 namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
@@ -201,7 +202,7 @@ namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
                 Filters = null,
             };
 
-            var reporter = new ReporterProvider(new CsvFileWriter(),
+            var reporter = new ReporterProvider(new CsvFileWriter(), new JsonFileWriter(),
                                                 new BenchmarkReader(new BenchmarkInfoJsonFileProvider()))
                 .GetReporter(kind);
 
@@ -210,14 +211,33 @@ namespace BenchmarkDotNetAnalyser.Tests.Integration.E2E
 
         public void CsvReportsAreVerified()
         {
-            var csvs = _reportResult.Where(r => Path.GetExtension(r) == ".csv");
+            var files = _reportResult.Where(r => Path.GetExtension(r) == ".csv");
 
-            foreach (var csv in csvs)
+            foreach (var file in files)
             {
-                if (!File.Exists(csv))
+                if (!File.Exists(file))
                 {
-                    throw new AssertionFailedException($"File {csv} does not exist.");
+                    throw new AssertionFailedException($"File {file} does not exist.");
                 }
+            }
+        }
+
+        public void JsonReportsAreVerified()
+        {
+            var files = _reportResult.Where(r => Path.GetExtension(r) == ".json");
+
+            foreach (var file in files)
+            {
+                if (!File.Exists(file))
+                {
+                    throw new AssertionFailedException($"File {file} does not exist.");
+                }
+                
+                var json = File.ReadAllText(file);
+                var records = JsonConvert.DeserializeObject<IList<BenchmarkRecord>>(json);
+
+                records.Count.Should().BeGreaterThan(0);
+
             }
         }
     }
